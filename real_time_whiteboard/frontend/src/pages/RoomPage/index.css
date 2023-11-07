@@ -1,0 +1,7 @@
+.circle-border{
+    border-width: 2px;
+    border-radius: 100%;
+}
+.canvas-box{
+    height: 500px;
+}
