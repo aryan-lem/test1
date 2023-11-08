@@ -1,11 +1,10 @@
 const express=require("express");
 
-
-
 const app= express();
 
 const server=require("http").createServer(app);
 const {Server} = require("socket.io");
+
 const { addUser } = require("./utils/users");
 
 
@@ -24,7 +23,7 @@ io.on("connection",(socket)=>{
         socket.join(roomId);
         const users=addUser(data);
         socket.emit("userIsJoined",{success:true ,users});
-        socket.broadcast.to(roomId).emit("allUsers",users)
+        socket.broadcast.to(roomId).emit("allUsers",users);
         socket.broadcast.to(roomId).emit("whiteBoardDataResponse",{
             imgURL:imgURLGlobal,
         })

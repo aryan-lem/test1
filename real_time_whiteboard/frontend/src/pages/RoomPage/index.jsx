@@ -9,6 +9,7 @@ const RoomPage = ({user,socket,users}) => {
     const [color,setColor]=useState('black');
     const [elements,setElements]=useState([]);
     const [history,setHistory]=useState([]);
+    const [openUserTab,setOpenUserTab]=useState(false);
 
     const hanldeClearCanvas=()=>{
         const canvas = canvasRef.current;
@@ -42,6 +43,26 @@ const RoomPage = ({user,socket,users}) => {
     }
     return ( 
         <div className="row">
+            
+            <button type="button"  style={{display:" block" ,position:"absolute" ,top: "5%",left:"5%", height:"40px" ,width: "100px" }} onClick={()=>setOpenUserTab(true)}>users</button>
+            {
+                openUserTab && (
+                    <div className='position-fixed top-0 h-100 text-white bg-dark'
+                    style={{width:"250px" ,left:"0%"}}>
+                        <button type='button' className='btn btn-light btn-block w-100 mt-5' onClick={()=>setOpenUserTab(false)}>close</button>
+                       <div className='w-100 mt-5 pt-5'>
+                        {
+                            users.map((usr,index)=>(
+                                <p key = {index*999 }className='my-2 text-center w-100' >
+                                    {usr.name} {user && user.userId==usr.userId &&"(you)"}
+                                </p>
+                            ))
+                        }
+                        </div> 
+                    </div>
+                        
+                    )
+                }
             <h1 className='text-center py-4 pt-4'>White Board Sharing App <span className='text-primary'>[Users Online : {users.length}]</span></h1>
             {
                 user && user.presenter&&(
